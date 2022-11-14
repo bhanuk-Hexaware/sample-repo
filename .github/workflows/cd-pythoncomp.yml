@@ -14,6 +14,7 @@ name: cd-pythoncomp
       - ci-pythoncomp
     branches:
       - main
+      - main
     paths:
       - '**/pythoncomp/**'
     types:
@@ -32,6 +33,19 @@ jobs:
           echo ENVIRONMENT=testing>> $GITHUB_ENV
           echo "RUN_NUMBER=${{github.event.workflow_run.run_number}}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ github.event.workflow_run.head_branch }}" >> $GITHUB_ENV
+      - if: |
+          github.event.inputs.environment == '' && contains(github.event.workflow_run.head_branch, 'main')
+        name: Set testing env
+        run: |-
+          echo ENVIRONMENT=testing>> $GITHUB_ENV
+          echo "RUN_NUMBER=${{github.event.workflow_run.run_number}}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ github.event.workflow_run.head_branch }}" >> $GITHUB_ENV
+      - if: |
+          github.event.inputs.environment == 'testing'
+        run: |
+          echo ENVIRONMENT=testing>> $GITHUB_ENV
+          echo "RUN_NUMBER=${{github.event.inputs.run_number}}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
       - if: |
           github.event.inputs.environment == 'testing'
         run: |
