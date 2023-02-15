@@ -8,8 +8,8 @@ name: ci-pythonwithenvwithdeploy
 env:
   DOCKER_FILE_PATH: ./pythonwithenvwithdeploy/Dockerfile
   DOCKER_BUILD_CONTEXT: pythonwithenvwithdeploy
-  CONTAINER_NAME: python-pipeline-test
-  REPOSITORY_NAME: python-pipeline-test
+  CONTAINER_NAME: reponame
+  REPOSITORY_NAME: reponame
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
